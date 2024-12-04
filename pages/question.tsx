@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/router';
 
 const questions = [
@@ -15,7 +15,7 @@ const Question: React.FC = () => {
   const question = questions[questionIndex];
 
   // Text-to-Speech Function
-  const speakQuestion = (text: string) => {
+  const speakQuestion = useCallback((text: string) => {
     if ('speechSynthesis' in window) {
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.onstart = () => setIsSpeaking(true);
@@ -30,12 +30,12 @@ const Question: React.FC = () => {
     } else {
       alert('Text-to-Speech is not supported in this browser.');
     }
-  };
+  }, [router, questionIndex]);
 
   // Play the question audio once when the page loads
   useEffect(() => {
     speakQuestion(question);
-  }, [question]);
+  }, [speakQuestion, question]);
 
   return (
     <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center">

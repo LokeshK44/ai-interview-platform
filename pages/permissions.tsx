@@ -12,6 +12,7 @@ const Permissions: React.FC = () => {
       await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
       setPermissionsGranted(true);
     } catch (err) {
+      console.error(err); // Log the error
       alert('Please enable Camera and Microphone permissions!');
     }
   };
@@ -29,6 +30,7 @@ const Permissions: React.FC = () => {
       await navigator.mediaDevices.getDisplayMedia();
       setScreenSharingEnabled(true);
     } catch (err) {
+      console.error(err); // Log the error
       alert('Screen sharing is not enabled. Please try again.');
     }
   };

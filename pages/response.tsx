@@ -25,6 +25,7 @@ const Response: React.FC = () => {
           videoRef.current.play();
         }
       } catch (err) {
+        console.error(err); // Log the error
         alert('Unable to access the camera. Please check permissions.');
       }
     };
@@ -46,7 +47,7 @@ const Response: React.FC = () => {
     if (timer === 0) {
       handleSaveAndNext(); // Trigger Save & Next automatically
     }
-  }, [timer]);
+  }, [timer, handleSaveAndNext]); // Added handleSaveAndNext to the dependency array
 
   // Save & Next Button Handler
   const handleSaveAndNext = () => {
